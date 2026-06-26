@@ -1,0 +1,92 @@
+[
+  {
+    "id": "nine-houses",
+    "category": "The Nine Houses",
+    "categoryRu": "Девять Домов",
+    "title": "The Nine Houses",
+    "titleRu": "Девять Домов",
+    "content": "The Nine Houses form the foundation of the Empire, each serving a specific function in the Resurrection. They are: the First (the Emperor), the Second (military), the Third (diplomacy), the Fourth (warriors), the Fifth (spiritual), the Sixth (scholars), the Seventh (artists), the Eighth (historians), and the Ninth (tomb guardians). Each House is led by an heir who may become a Lyctor through the trials at Canaan House.",
+    "contentRu": "Девять Домов составляют фундамент Империи, каждый выполняя определённую функцию в Воскрешении. Это: Первый (Император), Второй (военные), Третий (дипломатия), Четвёртый (воины), Пятый (духовность), Шестой (учёные), Седьмой (артисты), Восьмой (историки) и Девятый (хранители гробницы). Каждым Домом руководит наследник, который может стать Ликтором через испытания в Каанан-Хаусе.",
+    "relatedEntries": ["lyctors", "cavaliers", "necromancy"]
+  },
+  {
+    "id": "lyctors",
+    "category": "Lyctors",
+    "categoryRu": "Ликторы",
+    "title": "The Lyctors",
+    "titleRu": "Ликторы",
+    "content": "Lyctors are immortal necromancers who serve the Emperor. Created through a process that consumes the soul of their cavalier, Lyctors possess godlike power and eternal life. There are only eight Lyctors at any given time, one for each House (excluding the First). The process of becoming a Lyctor is the ultimate goal of the trials at Canaan House, but it comes at a terrible price — the complete destruction of the cavalier's soul.",
+    "contentRu": "Ликторы — бессмертные некроманты, служащие Императору. Созданные через процесс, поглощающий душу их кавалера, Ликторы обладают богоподобной силой и вечной жизнью. В любой момент существует только восемь Ликторов, по одному на каждый Дом (кроме Первого). Процесс становления Ликтором — конечная цель испытаний в Каанан-Хаусе, но он достигается ужасной ценой — полным уничтожением души кавалера.",
+    "relatedEntries": ["nine-houses", "cavaliers", "emperor"]
+  },
+  {
+    "id": "cavaliers",
+    "category": "Cavaliers",
+    "categoryRu": "Кавалеры",
+    "title": "The Cavaliers",
+    "titleRu": "Кавалеры",
+    "content": "Cavaliers are the sworn bodyguards and companions of necromancers. Each heir to a House is paired with a cavalier primary who serves as their protector, assistant, and, in the Lyctor process, their sacrifice. The relationship between necromancer and cavalier is sacred and complex, often lasting a lifetime. The finest cavaliers are trained from childhood in combat, strategy, and the protection of their necromancer.",
+    "contentRu": "Кавалеры — присягнувшие телохранители и спутники некромантов. Каждый наследник Дома сопровождается кавалером, который служит его защитником, помощником и, в процессе Ликтора, его жертвой. Отношения между некромантом и кавалером священны и сложны, часто длящиеся всю жизнь. Лучшие кавалеры обучаются с детства бою, стратегии и защите своего некроманта.",
+    "relatedEntries": ["lyctors", "nine-houses"]
+  },
+  {
+    "id": "necromancy",
+    "category": "Necromancy",
+    "categoryRu": "Некромантия",
+    "title": "The Art of Necromancy",
+    "titleRu": "Искусство Некромантии",
+    "content": "Necromancy is the manipulation of thanergy — the energy released at death. Practitioners can raise the dead, communicate with spirits, extend life, and reshape flesh and bone. The power of a necromancer depends on their House training and innate talent. The most powerful necromancers can create entire armies from skeletons or hold back death itself. However, all necromancy draws from the River, and overuse can lead to spiritual contamination.",
+    "contentRu": "Некромантия — это манипуляция танергией — энергией, высвобождаемой при смерти. Практики могут воскрешать мёртвых, общаться с духами, продлевать жизнь и изменять плоть и кости. Сила некроманта зависит от обучения в его Доме и врождённого таланта. Самые могущественные некроманты могут создавать целые армии из скелетов или сдерживать саму смерть. Однако вся некромантия черпает силу из Реки, и чрезмерное использование может привести к духовной контаминации.",
+    "relatedEntries": ["thanergy", "river", "lyctors"]
+  },
+  {
+    "id": "thanergy",
+    "category": "Necromancy",
+    "categoryRu": "Некромантия",
+    "title": "Thanergy",
+    "titleRu": "Танергия",
+    "content": "Thanergy is the fundamental energy of death. Released at the moment of expiration, it flows through the universe in patterns that necromancers can perceive and manipulate. Thanergy is distinct from thalergy (life energy) and exists in a delicate balance with it. The study of thanergy is the foundation of all necromantic practice. Advanced necromancers can sense thanergy flows, store thanergy in objects, and even consume thanergy to extend their own lives.",
+    "contentRu": "Танергия — это фундаментальная энергия смерти. Высвобождаемая в момент умирания, она течёт по вселенной в паттернах, которые некроманты могут воспринимать и манипулировать ими. Танергия отличается от талергии (энергии жизни) и существует в деликатном балансе с ней. Изучение танергии — основа всей некромантической практики. Продвинутые некроманты могут чувствовать потоки танергии, хранить танергию в предметах и даже поглощать танергию для продления собственной жизни.",
+    "relatedEntries": ["necromancy", "river"]
+  },
+  {
+    "id": "river",
+    "category": "The River",
+    "categoryRu": "Река",
+    "title": "The River",
+    "titleRu": "Река",
+    "content": "The River is the metaphysical boundary between life and death. All souls pass through the River upon death, carried by its currents to their final rest. Necromancers can perceive and interact with the River, pulling souls back temporarily or communicating with the departed. The Fifth House serves as the primary guardian of the River. Disturbances in the River's flow can indicate major necromantic events or the presence of powerful undead.",
+    "contentRu": "Река — это метафизическая граница между жизнью и смертью. Все души проходят через Реку при смерти, уносимые её течениями в их последний покой. Некроманты могут воспринимать и взаимодействовать с Рекой, временно возвращая души или общаясь с ушедшими. Пятый Дом служит главным стражем Реки. Возмущения в потоке Реки могут указывать на крупные некромантические события или присутствие мощной нежити.",
+    "relatedEntries": ["necromancy", "thanergy", "fifth-house"]
+  },
+  {
+    "id": "locked-tomb",
+    "category": "The Locked Tomb",
+    "categoryRu": "Запертая Гробница",
+    "title": "The Locked Tomb",
+    "titleRu": "Запертая Гробница",
+    "content": "The Locked Tomb is the most sacred and secret place in the Empire. Located within the Ninth House, it contains the body of the Emperor's greatest enemy, sealed away ten thousand years ago. The Ninth House has guarded the Tomb since the founding of the Empire, ensuring that its prisoner never escapes. The true nature of what lies within is known only to the Emperor and the highest members of the Ninth House. Harrowhark Nonagesimus has dedicated her life to unlocking its secrets.",
+    "contentRu": "Запертая Гробница — самое священное и секретное место в Империи. Расположенная внутри Девятого Дома, она содержит тело величайшего врага Императора, запечатанное десять тысяч лет назад. Девятый Дом охраняет Гробницу с основания Империи, гарантируя, что её узник никогда не сбежит. Истинная природа того, что лежит внутри, известна только Императору и высшим членам Девятого Дома. Харроу Нонагесимус посвятила свою жизнь раскрытию её тайн.",
+    "relatedEntries": ["ninth-house", "emperor"]
+  },
+  {
+    "id": "emperor",
+    "category": "The Emperor",
+    "categoryRu": "Император",
+    "title": "The King Undying",
+    "titleRu": "Король Неумирающий",
+    "content": "The Emperor, also known as the King Undying, is the immortal ruler of the Nine Houses. He was the first necromancer and the first Lyctor, having conquered death itself ten thousand years ago. From his throne in the Mithraeum, he maintains the Resurrection that keeps the Empire alive. His power is absolute, his wisdom supposedly infinite, and his true nature a mystery even to his Lyctors. Some say he is a god. Others say he is the greatest monster in history.",
+    "contentRu": "Император, также известный как Король Неумирающий, — бессмертный правитель Девяти Домов. Он был первым некромантом и первым Ликтором, покорившим саму смерть десять тысяч лет назад. Со своего трона в Митреуме он поддерживает Воскрешение, которое держит Империю в живых. Его власть абсолютна, его мудрость якобы бесконечна, а его истинная природа — загадка даже для его Ликторов. Некоторые говорят, что он бог. Другие говорят, что он величайший монстр в истории.",
+    "relatedEntries": ["lyctors", "locked-tomb", "nine-houses"]
+  },
+  {
+    "id": "canaan-house",
+    "category": "Canaan House",
+    "categoryRu": "Каанан-Хаус",
+    "title": "Canaan House",
+    "titleRu": "Каанан-Хаус",
+    "content": "Canaan House is the ancient palace where the Lyctor trials are conducted. Built ten thousand years ago by the Emperor, it contains laboratories, libraries, and chambers designed to test the limits of necromantic ability. The palace sits on a black sand beach by a dead sea, isolated from the rest of the Empire. Its architecture is alive with thanergy, and its corridors shift and change according to patterns only the Emperor fully understands. Many have entered Canaan House. Not all have left.",
+    "contentRu": "Каанан-Хаус — древний дворец, где проводятся испытания Ликтора. Построенный десять тысяч лет назад Императором, он содержит лаборатории, библиотеки и камеры, созданные для проверки пределов некромантических способностей. Дворец стоит на чёрном песчаном пляже у мёртвого моря, изолированный от остальной Империи. Его архитектура жива танергией, а коридоры сдвигаются и меняются согласно паттернам, которые только Император полностью понимает. Многие входили в Каанан-Хаус. Не все вышли.",
+    "relatedEntries": ["lyctors", "nine-houses"]
+  }
+]

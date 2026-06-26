@@ -1,0 +1,223 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --tomb-black: #0a0a0c;
+    --tomb-dark: #121218;
+    --tomb-grey: #1a1a24;
+    --tomb-light: #2a2a38;
+    --tomb-ivory: #e8e0d0;
+    --tomb-bone: #c4b8a8;
+    --tomb-bronze: #8b7355;
+    --tomb-gold: #a8946a;
+    --tomb-green: #4a5a48;
+    --tomb-sage: #6b7a6a;
+    --tomb-blood: #6b2d2d;
+    --tomb-rust: #8b4513;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--tomb-bronze) var(--tomb-dark);
+  }
+
+  *::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: var(--tomb-dark);
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: var(--tomb-bronze);
+    border-radius: 3px;
+  }
+
+  body {
+    @apply bg-tomb-black text-tomb-ivory font-body;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: rgba(168, 148, 106, 0.3);
+    color: var(--tomb-ivory);
+  }
+}
+
+@layer components {
+  .tomb-border {
+    @apply border border-tomb-bronze/30;
+  }
+
+  .tomb-border-gold {
+    @apply border border-tomb-gold/40;
+  }
+
+  .tomb-panel {
+    @apply bg-tomb-dark/90 backdrop-blur-sm tomb-border rounded-sm;
+  }
+
+  .tomb-panel-gold {
+    @apply bg-tomb-dark/90 backdrop-blur-sm tomb-border-gold rounded-sm;
+  }
+
+  .tomb-text-glow {
+    text-shadow: 0 0 20px rgba(168, 148, 106, 0.4);
+  }
+
+  .tomb-text-glow-strong {
+    text-shadow: 0 0 30px rgba(168, 148, 106, 0.6);
+  }
+
+  .noise-overlay {
+    position: relative;
+  }
+
+  .noise-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .vignette {
+    position: relative;
+  }
+
+  .vignette::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(10, 10, 12, 0.8) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .book-page {
+    @apply bg-tomb-ivory/5 tomb-border p-6;
+    background-image: 
+      linear-gradient(90deg, rgba(139, 115, 85, 0.05) 1px, transparent 1px),
+      linear-gradient(rgba(139, 115, 85, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  .ancient-text {
+    @apply font-body text-tomb-bone leading-relaxed;
+    text-shadow: 0 0 1px rgba(196, 184, 168, 0.1);
+  }
+
+  .hover-lift {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .hover-lift:hover {
+    @apply -translate-y-1;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  .gothic-heading {
+    @apply font-display text-tomb-gold tracking-wider;
+  }
+
+  .room-card {
+    @apply relative overflow-hidden tomb-border bg-tomb-grey/50 transition-all duration-500;
+  }
+
+  .room-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 60%, rgba(10, 10, 12, 0.9) 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .room-card:hover {
+    @apply border-tomb-gold/50;
+    box-shadow: 0 0 30px rgba(168, 148, 106, 0.15);
+  }
+
+  .character-card {
+    @apply relative tomb-border bg-tomb-dark/80 p-4 transition-all duration-300;
+  }
+
+  .character-card:hover {
+    @apply border-tomb-bronze/60;
+    background: rgba(26, 26, 36, 0.95);
+  }
+
+  .timeline-node {
+    @apply relative flex items-center justify-center w-4 h-4 rounded-full border-2 border-tomb-bronze bg-tomb-dark;
+    transition: all 0.3s ease;
+  }
+
+  .timeline-node.active {
+    @apply border-tomb-gold bg-tomb-gold/20;
+    box-shadow: 0 0 15px rgba(168, 148, 106, 0.4);
+  }
+
+  .timeline-line {
+    @apply absolute left-1/2 top-4 bottom-0 w-px bg-tomb-bronze/30 -translate-x-1/2;
+  }
+
+  .search-highlight {
+    @apply bg-tomb-gold/30 text-tomb-ivory;
+  }
+
+  .parallax-container {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+  }
+
+  .parallax-layer {
+    transition: transform 0.1s ease-out;
+    will-change: transform;
+  }
+
+  .document-page {
+    @apply relative bg-tomb-dark/95 tomb-border p-8;
+    box-shadow: 
+      inset 0 0 60px rgba(0, 0, 0, 0.5),
+      0 0 40px rgba(0, 0, 0, 0.3);
+  }
+
+  .document-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--tomb-bronze), transparent);
+    opacity: 0.5;
+  }
+
+  .codex-entry {
+    @apply tomb-border bg-tomb-dark/70 p-5 transition-all duration-300;
+  }
+
+  .codex-entry:hover {
+    @apply bg-tomb-grey/70 border-tomb-bronze/50;
+  }
+
+  .skull-divider {
+    @apply flex items-center gap-4 my-8;
+  }
+
+  .skull-divider::before,
+  .skull-divider::after {
+    content: '';
+    @apply flex-1 h-px bg-tomb-bronze/30;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

@@ -1,0 +1,160 @@
+[
+  {
+    "id": "harrow-journal",
+    "title": "Personal Journal of Harrowhark Nonagesimus",
+    "titleRu": "Личный дневник Харроу Нонагесимус",
+    "author": "Harrowhark Nonagesimus",
+    "authorRu": "Харроу Нонагесимус",
+    "date": "Myriadic Year 10,000",
+    "type": "journal",
+    "content": [
+      "Day 1 at Canaan House. The palace reeks of ancient death. Every corridor holds secrets ten thousand years old. I can feel the thanergy humming through the walls like a second heartbeat.",
+      "Gideon is insufferable. She spends her time staring at the sea and polishing that ridiculous sword. I need her for the trials, but her ignorance is a constant weight around my neck.",
+      "The other heirs are fools. The Third House princesses play at court intrigue while the Sixth House boy buries himself in books. None of them understand what is truly at stake.",
+      "The Locked Tomb calls to me. I can feel it even here, across the void of space. My parents died for this. I will not fail.",
+      "The first trial approaches. I have prepared for this moment my entire life. The bone architecture of Canaan House is complex but not insurmountable. With Gideon's sword and my art, we will succeed."
+    ],
+    "contentRu": [
+      "День 1 в Каанан-Хаусе. Дворец пропах древней смертью. Каждый коридор хранит секреты десятитысячелетней давности. Я чувствую, как танергия гудит в стенах, как второе сердцебиение.",
+      "Гидеон невыносима. Она проводит время, глядя на море и полируя свой нелепый меч. Она нужна мне для испытаний, но её невежество — постоянная тяжесть на моей шее.",
+      "Другие наследники — дураки. Принцессы Третьего Дома играют в придворные интриги, пока мальчик из Шестого Дома закапывается в книгах. Никто из них не понимает, что действительно поставлено на карту.",
+      "Запертая Гробница зовёт меня. Я чувствую это даже здесь, через пустоту космоса. Мои родители умерли ради этого. Я не потерплю неудачу.",
+      "Первое испытание приближается. Я готовилась к этому моменту всю свою жизнь. Костная архитектура Каанан-Хауса сложна, но не непреодолима. С мечом Гидеон и моим искусством мы преуспеем."
+    ],
+    "room": "ninth-apartments",
+    "relatedCharacters": ["harrow", "gideon"],
+    "relatedEvents": ["ninth-arrival", "uneasy-truce"]
+  },
+  {
+    "id": "necromancy-manual",
+    "title": "Basic Principles of Thanergy Manipulation",
+    "titleRu": "Основные принципы манипуляции танергией",
+    "author": "The First House",
+    "authorRu": "Первый Дом",
+    "date": "Year 1 of the Empire",
+    "type": "manual",
+    "content": [
+      "Thanergy is the energy of death. It flows from the moment of expiration, radiating outward in patterns determined by the manner of death and the strength of the soul departed.",
+      "The necromancer acts as a conduit and architect of thanergy. Through will and word, the practitioner may shape this energy into constructs of bone, summon shades from the River, or extend their own life beyond natural limits.",
+      "WARNING: The manipulation of thanergy carries grave risks. Prolonged exposure without proper wards may result in necrotic degradation, spiritual contamination, or permanent severance from the River.",
+      "The Lyctor process represents the pinnacle of necromantic achievement. By consuming the soul of one's cavalier, the necromancer achieves perfect thanergetic synthesis, becoming immortal and all-powerful.",
+      "This knowledge is restricted to the Emperor and his Lyctors. Unauthorized study is punishable by immediate execution and eternal dissolution."
+    ],
+    "contentRu": [
+      "Танергия — это энергия смерти. Она течёт от момента умирания, излучаясь наружу в паттернах, определяемых обстоятельствами смерти и силой ушедшей души.",
+      "Некромант действует как проводник и архитектор танергии. Через волю и слово практик может формировать эту энергию в конструкции из костей, призывать тени из Реки или продлевать собственную жизнь за пределы естественных лимитов.",
+      "ПРЕДУПРЕЖДЕНИЕ: Манипуляция танергией несёт серьёзные риски. Длительное воздействие без надлежащих защит может привести к некротической деградации, духовной контаминации или постоянному отсечению от Реки.",
+      "Процесс Ликтора представляет вершину некромантического достижения. Поглощая душу своего кавалера, некромант достигает совершенного танергетического синтеза, становясь бессмертным и всемогущим.",
+      "Эти знания ограничены Императором и его Ликторами. Несанкционированное изучение карается немедленной казнью и вечным растворением."
+    ],
+    "room": "library",
+    "relatedCharacters": ["palamedes", "harrow"],
+    "relatedEvents": ["library-research", "sixth-house-study"]
+  },
+  {
+    "id": "emperor-chronicle",
+    "title": "Chronicle of the King Undying",
+    "titleRu": "Хроника Короля Неумирающего",
+    "author": "The Priesthood of Canaan",
+    "authorRu": "Жречество Каанана",
+    "date": "Year 5,000 of the Empire",
+    "type": "record",
+    "content": [
+      "In the beginning, there was only death. The King Undying rose from the void and conquered it, becoming the first necromancer and the first Lyctor.",
+      "He established the Nine Houses to serve as pillars of his eternal reign. Each House was granted dominion over a different aspect of death and resurrection.",
+      "The First House holds the throne. The Second serves as his sword. The Third speaks his words. The Fourth carries his hope. The Fifth guards his heart. The Sixth reasons for him. The Seventh brings him joy. The Eighth keeps his tomes. The Ninth tends his tomb.",
+      "For ten thousand years, the King Undying has ruled from the Mithraeum. His Lyctors serve as his hands across the Empire. The Resurrection maintains order through the sacred art of necromancy.",
+      "But whispers speak of a tenth House. A House that was erased from history. A House that challenged the Emperor and was destroyed so completely that even memory of it fades."
+    ],
+    "contentRu": [
+      "В начале была только смерть. Король Неумирающий восстал из пустоты и покорил её, став первым некромантом и первым Ликтором.",
+      "Он основал Девять Домов как столпы своего вечного правления. Каждому Дому была дарована власть над различным аспектом смерти и воскрешения.",
+      "Первый Дом держит трон. Второй служит его мечом. Третий говорит его слова. Четвёртый несёт его надежду. Пятый стережёт его сердце. Шестой рассуждает за него. Седьмой дарит ему радость. Восьмой хранит его томы. Девятый ухаживает за его гробницей.",
+      "Десять тысяч лет Король Неумирающий правит из Митреума. Его Ликторы служат его руками по всей Империи. Воскрешение поддерживает порядок через священное искусство некромантии.",
+      "Но шёпоты говорят о десятом Доме. О Доме, который был стёрт из истории. О Доме, который бросил вызов Императору и был уничтожен так полностью, что даже память о нём угасает."
+    ],
+    "room": "library",
+    "relatedCharacters": [],
+    "relatedEvents": ["sixth-house-study"]
+  },
+  {
+    "id": "experiment-log",
+    "title": "Laboratory Experiment Log #734",
+    "titleRu": "Журнал лабораторных экспериментов №734",
+    "author": "Lyctor Anastasius",
+    "authorRu": "Ликтор Анастасий",
+    "date": "Year 8,234 of the Empire",
+    "type": "journal",
+    "content": [
+      "The subject continues to resist the thanergetic transfer. Despite optimal conditions and full compliance from the cavalier, the soul refuses to integrate properly.",
+      "I have modified the resonance chamber to accept higher frequencies. The cavalier's screams are... unfortunate, but necessary. Science demands sacrifice.",
+      "Success at last. The cavalier's soul has been fully consumed. The necromantic capacity of the subject has increased by 400%. Immortality is achieved.",
+      "Side effects noted: The subject reports hearing the cavalier's voice. Personality bleed is occurring. The Emperor warned of this, but I believed myself strong enough to resist.",
+      "I was wrong. The cavalier is still here. In my thoughts. In my dreams. In my bones. I can feel her moving beneath my skin. The price of Lyctorhood is higher than any of us understood."
+    ],
+    "contentRu": [
+      "Объект продолжает сопротивляться танергетической передаче. Несмотря на оптимальные условия и полное согласие кавалера, душа отказывается интегрироваться должным образом.",
+      "Я модифицировал резонансную камеру для приёма более высоких частот. Крики кавалера... неприятны, но необходимы. Наука требует жертв.",
+      "Наконец успех. Душа кавалера полностью поглощена. Некромантическая ёмкость объекта увеличилась на 400%. Бессмертие достигнуто.",
+      "Отмечены побочные эффекты: Объект сообщает, что слышит голос кавалера. Происходит утечка личности. Император предупреждал об этом, но я верил, что достаточно силён, чтобы сопротивляться.",
+      "Я ошибался. Кавалер всё ещё здесь. В моих мыслях. В моих снах. В моих костях. Я чувствую, как она движется под моей кожей. Цена Ликторства выше, чем любой из нас понимал."
+    ],
+    "room": "laboratory-1",
+    "relatedCharacters": ["palamedes", "harrow"],
+    "relatedEvents": ["first-lyctor-trial", "thanergy-experiment"]
+  },
+  {
+    "id": "duel-record",
+    "title": "Record of Cavaliers Past",
+    "titleRu": "Запись о прошлых кавалерах",
+    "author": "Canaan House Archivist",
+    "authorRu": "Архивариус Каанан-Хауса",
+    "date": "Year 9,500 of the Empire",
+    "type": "record",
+    "content": [
+      "The following is a complete record of cavaliers who have served at Canaan House during the Lyctor trials. May their sacrifice be remembered.",
+      "Year 9,412: Cavalier of the Second House, name redacted. Fell during the Third Trial. Body interred in the catacombs.",
+      "Year 9,456: Cavalier of the Fifth House, name redacted. Consumed during the Lyctor process. Soul integrated successfully.",
+      "Year 9,501: Cavalier of the Seventh House, name redacted. Died by misadventure in the laboratories. Body used for necromantic research.",
+      "Year 9,678: Cavalier of the Fourth House, name redacted. Survived the trials but was executed for treason. Body displayed as warning.",
+      "Year 9,890: Cavalier of the Eighth House, name redacted. The only cavalier to refuse the Lyctor process. Died by own hand. Soul dissipated."
+    ],
+    "contentRu": [
+      "Ниже приведена полная запись о кавалерах, служивших в Каанан-Хаусе во время испытаний Ликтора. Да будет помнена их жертва.",
+      "Год 9,412: Кавалер Второго Дома, имя вычеркнуто. Пал во время Третьего Испытания. Тело погребено в катакомбах.",
+      "Год 9,456: Кавалер Пятого Дома, имя вычеркнуто. Поглощён во время процесса Ликтора. Душа интегрирована успешно.",
+      "Год 9,501: Кавалер Седьмого Дома, имя вычеркнуто. Умер при несчастном случае в лабораториях. Тело использовано для некромантических исследований.",
+      "Год 9,678: Кавалер Четвёртого Дома, имя вычеркнуто. Пережил испытания, но был казнён за измену. Тело выставлено как предупреждение.",
+      "Год 9,890: Кавалер Восьмого Дома, имя вычеркнуто. Единственный кавалер, отказавшийся от процесса Ликтора. Умер собственной рукой. Душа рассеялась."
+    ],
+    "room": "fencing-hall",
+    "relatedCharacters": ["gideon", "naberius", "camilla"],
+    "relatedEvents": ["first-duel", "gideon-training"]
+  },
+  {
+    "id": "message-bottle",
+    "title": "Message in a Bottle",
+    "titleRu": "Послание в бутылке",
+    "author": "Unknown",
+    "authorRu": "Неизвестный",
+    "date": "Unknown",
+    "type": "letter",
+    "content": [
+      "If you are reading this, you have found what remains of me. I was a cavalier once. I served with honor. I died with none.",
+      "The sea around Canaan House is not water. It is memory. It is death. It is everything the Emperor wished to forget.",
+      "Do not trust the trials. Do not trust the Lyctors. Do not trust the King Undying. They all feed on the same thing — our souls, our loyalty, our lives.",
+      "I tried to warn the others. I tried to escape. The sea would not let me go. It holds everyone who dies here, forever.",
+      "If you have a sword, use it. If you have a voice, scream. If you have a soul, guard it with everything you have. They will come for it. They always come."
+    ],
+    "contentRu": [
+      "Если ты читаешь это, ты нашёл то, что от меня осталось. Когда-то я был кавалером. Я служил с честью. Я умер без неё.",
+      "Море вокруг Каанан-Хауса — это не вода. Это память. Это смерть. Это всё, что Император хотел забыть.",
+      "Не доверяй испытаниям. Не доверяй Ликторам. Не доверяй Королю Неумирающему. Все они питаются одним и тем же — нашими душами, нашей верностью, нашими жизнями.",
+      "Я пытался предупредить других. Я пытался сбежать. Море не отпускало меня. Оно удерживает всех, кто умирает здесь, навсегда.",
+      "Если у тебя есть меч, используй его. Если у тебя есть голос, кричи. Если у тебя есть душа, храни её всем, что у тебя есть. Они придут за ней. Они всегда приходят."
+    ],
+    "room": "coast",
+    "relatedCharacters": ["gideon"],
+    "relatedEvents": ["coast-walk", "sea-discovery"]
+  }
+]
