@@ -1,208 +1,142 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Eye, BookOpen, Users, Calendar } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
-import { useParallax } from '@/hooks/useParallax';
-import roomsData from '@/data/rooms.json';
-import charactersData from '@/data/characters.json';
-import eventsData from '@/data/events.json';
-import documentsData from '@/data/documents.json';
-import type { Room, Character, Event, Document } from '@/types';
+import { supabase } from '@/lib/supabase';
 import { cn } from '@/utils/cn';
+import { MapPin, Users, Package, Calendar } from 'lucide-react';
 
 export const RoomDetail: React.FC = () => {
-  const { roomId } = useParams<{ roomId: string }>();
-  const { timeOfDay, language, markRoomVisited } = useApp();
-  const { ref, offset } = useParallax(10);
+  const { id } = useParams<{ id: string }>();
+  const { language } = useApp();
 
-  const room = (roomsData as Room[]).find(r => r.id === roomId);
+  const [room, setRoom] = useState<any>(null);
+  const [objects, setObjects] = useState<any[]>([]);
+  const [events, setEvents] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (roomId) markRoomVisited(roomId);
-  }, [roomId, markRoomVisited]);
+    async function loadRoom() {
+      if (!id) return;
 
-  if (!room) {
-    return (
-      <div className="min-h-screen pt-24 px-4 text-center">
-        <h2 className="font-display text-2xl text-tomb-gold">Room Not Found</h2>
-        <Link to="/" className="text-tomb-bronze hover:text-tomb-gold mt-4 inline-block">
-          Return to Map
-        </Link>
-      </div>
-    );
+      // 1. Получаем комнату + локацию
+      const { data: roomData, error: roomError } = await supabase
+        .from('rooms')
+        .select(`
+          *,
+          location:locations(name, type)
+        `)
+        .eq('id', id)
+        .single();
+
+      if (roomError) {
+        console.error('Ошибка загрузки комнаты:', roomError);
+        setLoading(false);
+        return;
+      }
+
+      setRoom(roomData);
+
+      // 2. Получаем предметы в комнате
+      const { data: objectsData } = await supabase
+        .from('room_objects')
+        .select(`
+          is_hidden,
+          object:objects(id, name, type, description)
+        `)
+        .eq('room_id', id);
+
+      setObjects(objectsData || []);
+
+      // 3. Получаем события, происходившие в комнате
+      const { data: eventsData } = await supabase
+        .from('events')
+        .select('id, name, day, importance')
+        .eq('location_id', id)
+        .order('day', { ascending: true });
+
+      setEvents(eventsData || []);
+
+      setLoading(false);
+    }
+
+    loadRoom();
+  }, [id]);
+
+  if (loading) {
+    return <div className="p-8 text-center text-white">Загрузка комнаты...</div>;
   }
 
-  const relatedCharacters = (charactersData as Character[])
-    .filter(c => room.characters.includes(c.id));
-  const relatedEvents = (eventsData as Event[])
-    .filter(e => room.events.includes(e.id));
-  const relatedDocuments = (documentsData as Document[])
-    .filter(d => d.room === room.id);
-
-  const getAtmosphereClass = (atmosphere: Room['atmosphere']) => {
-    switch (atmosphere) {
-      case 'bright': return 'from-tomb-sage/20 to-transparent';
-      case 'dim': return 'from-tomb-bronze/20 to-transparent';
-      case 'dark': return 'from-tomb-blood/20 to-transparent';
-      case 'ominous': return 'from-tomb-blood/30 to-transparent';
-      default: return 'from-tomb-bronze/20 to-transparent';
-    }
-  };
+  if (!room) {
+    return <div className="p-8 text-center text-white">Комната не найдена</div>;
+  }
 
   return (
-    <div className="min-h-screen pt-16 pb-8">
-      {/* Hero Section */}
-      <div 
-        ref={ref}
-        className={cn(
-          "relative h-64 md:h-80 overflow-hidden",
-          timeOfDay === 'night' ? 'brightness-75' : ''
-        )}
-      >
-        <div 
-          className={cn("absolute inset-0 bg-gradient-to-b", getAtmosphereClass(room.atmosphere))}
-          style={{
-            transform: `translate(${offset.x}px, ${offset.y}px) scale(1.1)`,
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-tomb-black via-tomb-black/50 to-transparent" />
-
-        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            <Link 
-              to="/" 
-              className="inline-flex items-center gap-2 text-tomb-bronze hover:text-tomb-gold mb-4 transition-colors"
-            >
-              <ArrowLeft size={16} />
-              <span className="font-body text-sm">{language === 'en' ? 'Back to Map' : 'Назад к карте'}</span>
-            </Link>
-
-            <h1 className="font-display text-3xl md:text-5xl text-tomb-gold mb-2">
-              {language === 'en' ? room.name : room.nameRu}
-            </h1>
-            <p className="font-mono text-sm text-tomb-bone/60">
-              {language === 'en' ? `Floor ${room.floor === 0 ? 'Ground' : room.floor}` : `Этаж ${room.floor === 0 ? 'Первый' : room.floor}`}
-              {' · '}
-              <span className="capitalize">{room.atmosphere}</span>
-            </p>
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="max-w-4xl mx-auto px-4 py-8">
+    <div className="min-h-screen pt-16 pb-8 px-4">
+      <div className="max-w-4xl mx-auto">
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="document-page mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="tomb-panel p-6 mb-6"
         >
-          <p className="ancient-text text-lg leading-relaxed">
-            {language === 'en' ? room.description : room.descriptionRu}
-          </p>
+          <div className="flex items-center gap-2 text-tomb-gold text-sm font-mono mb-2">
+            <MapPin size={14} />
+            {room.location?.name || 'Unknown Location'}
+          </div>
+          <h1 className="font-display text-3xl text-tomb-ivory mb-4">
+            {room.name}
+          </h1>
+          <div className="flex flex-wrap gap-2 mb-4">
+            <span className="px-2 py-1 bg-tomb-bronze/20 text-tomb-bone/70 text-xs font-mono rounded">
+              {room.room_type}
+            </span>
+            <span className="px-2 py-1 bg-tomb-bronze/20 text-tomb-bone/70 text-xs font-mono rounded">
+              {language === 'en' ? `Floor ${room.floor_level}` : `Этаж ${room.floor_level}`}
+            </span>
+            {room.access_level !== 'open' && (
+              <span className="px-2 py-1 bg-red-900/30 text-red-300 text-xs font-mono rounded">
+                {room.access_level}
+              </span>
+            )}
+          </div>
+          {room.atmosphere && (
+            <p className="ancient-text text-tomb-bone/80 leading-relaxed italic">
+              {room.atmosphere}
+            </p>
+          )}
         </motion.div>
 
-        {/* Connected Rooms */}
-        {room.connections.length > 0 && (
+        {/* Предметы в комнате */}
+        {objects.length > 0 && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="mb-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="mb-6"
           >
-            <h3 className="font-display text-xl text-tomb-gold mb-4 flex items-center gap-2">
-              <ArrowRight size={18} />
-              {language === 'en' ? 'Connected Rooms' : 'Связанные комнаты'}
-            </h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-              {room.connections.map(connId => {
-                const connRoom = (roomsData as Room[]).find(r => r.id === connId);
-                if (!connRoom) return null;
-                return (
-                  <Link
-                    key={connId}
-                    to={`/room/${connId}`}
-                    className="tomb-panel p-3 hover:border-tomb-gold/50 transition-all hover:-translate-y-0.5"
-                  >
-                    <span className="font-display text-sm text-tomb-ivory">
-                      {language === 'en' ? connRoom.name : connRoom.nameRu}
-                    </span>
-                  </Link>
-                );
-              })}
-            </div>
-          </motion.div>
-        )}
-
-        {/* Characters */}
-        {relatedCharacters.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="mb-8"
-          >
-            <h3 className="font-display text-xl text-tomb-gold mb-4 flex items-center gap-2">
-              <Users size={18} />
-              {language === 'en' ? 'Characters Present' : 'Присутствующие персонажи'}
-            </h3>
+            <h2 className="font-display text-2xl text-tomb-ivory mb-4 flex items-center gap-2">
+              <Package size={20} className="text-tomb-gold" />
+              {language === 'en' ? 'Objects' : 'Предметы'}
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {relatedCharacters.map(char => (
+              {objects.map((item: any) => (
                 <Link
-                  key={char.id}
-                  to={`/character/${char.id}`}
-                  className="character-card flex items-center gap-4"
-                >
-                  <div 
-                    className="w-12 h-12 rounded-full flex items-center justify-center text-lg font-display"
-                    style={{ backgroundColor: char.houseNumber === 9 ? '#1a1a1a' : char.houseNumber === 3 ? '#FFD700' : char.houseNumber === 6 ? '#4169E1' : '#8b7355' }}
-                  >
-                    {char.name.charAt(0)}
-                  </div>
-                  <div>
-                    <p className="font-display text-sm text-tomb-ivory">{language === 'en' ? char.name : char.nameRu}</p>
-                    <p className="font-mono text-xs text-tomb-bone/50">{language === 'en' ? char.house : char.houseRu}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </motion.div>
-        )}
-
-        {/* Events */}
-        {relatedEvents.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="mb-8"
-          >
-            <h3 className="font-display text-xl text-tomb-gold mb-4 flex items-center gap-2">
-              <Calendar size={18} />
-              {language === 'en' ? 'Events' : 'События'}
-            </h3>
-            <div className="space-y-3">
-              {relatedEvents.map(event => (
-                <Link
-                  key={event.id}
-                  to={`/timeline?event=${event.id}`}
-                  className="block tomb-panel p-4 hover:border-tomb-gold/50 transition-all"
+                  key={item.object.id}
+                  to={`/object/${item.object.id}`}
+                  className="tomb-panel p-4 hover:border-tomb-bronze/50 transition-all"
                 >
                   <div className="flex items-start justify-between">
                     <div>
-                      <p className="font-display text-sm text-tomb-ivory">{language === 'en' ? event.title : event.titleRu}</p>
-                      <p className="font-mono text-xs text-tomb-bone/50 mt-1">
-                        {language === 'en' ? `Day ${event.day}` : `День ${event.day}`}
-                        {event.chapter && ` · ${event.chapter}`}
-                      </p>
+                      <h3 className="font-display text-lg text-tomb-ivory mb-1">
+                        {item.object.name}
+                      </h3>
+                      <span className="px-2 py-0.5 bg-tomb-bronze/20 text-tomb-bone/70 text-xs font-mono rounded">
+                        {item.object.type}
+                      </span>
                     </div>
-                    {event.isMajor && (
-                      <span className="px-2 py-1 bg-tomb-blood/30 text-tomb-bone/70 text-xs font-mono rounded">
-                        {language === 'en' ? 'Major' : 'Главное'}
+                    {item.is_hidden && (
+                      <span className="text-xs text-tomb-blood font-mono">
+                        hidden
                       </span>
                     )}
                   </div>
@@ -212,29 +146,32 @@ export const RoomDetail: React.FC = () => {
           </motion.div>
         )}
 
-        {/* Documents */}
-        {relatedDocuments.length > 0 && (
+        {/* События в комнате */}
+        {events.length > 0 && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="mb-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
           >
-            <h3 className="font-display text-xl text-tomb-gold mb-4 flex items-center gap-2">
-              <BookOpen size={18} />
-              {language === 'en' ? 'Documents Found' : 'Найденные документы'}
-            </h3>
+            <h2 className="font-display text-2xl text-tomb-ivory mb-4 flex items-center gap-2">
+              <Calendar size={20} className="text-tomb-gold" />
+              {language === 'en' ? 'Events' : 'События'}
+            </h2>
             <div className="space-y-3">
-              {relatedDocuments.map(doc => (
+              {events.map((event) => (
                 <Link
-                  key={doc.id}
-                  to={`/document/${doc.id}`}
-                  className="block tomb-panel p-4 hover:border-tomb-gold/50 transition-all"
+                  key={event.id}
+                  to={`/timeline?event=${event.id}`}
+                  className="block tomb-panel p-4 hover:border-tomb-bronze/50 transition-all"
                 >
-                  <p className="font-display text-sm text-tomb-ivory">{language === 'en' ? doc.title : doc.titleRu}</p>
-                  <p className="font-mono text-xs text-tomb-bone/50 mt-1">
-                    {language === 'en' ? doc.author : doc.authorRu} · {doc.type}
-                  </p>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="font-mono text-xs text-tomb-gold">
+                      {language === 'en' ? `Day ${event.day}` : `День ${event.day}`}
+                    </span>
+                  </div>
+                  <h3 className="font-display text-lg text-tomb-ivory">
+                    {event.name}
+                  </h3>
                 </Link>
               ))}
             </div>

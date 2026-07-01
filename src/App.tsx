@@ -11,8 +11,13 @@ import { Timeline } from './components/Timeline';
 import { Codex } from './components/Codex';
 import { DocumentView } from './components/DocumentView';
 import { Search } from './components/Search';
+import { testConnection } from './test-supabase';
+import { useEffect } from 'react';
 
 const AppContent: React.FC = () => {
+  useEffect(() => {
+    testConnection();
+  }, []);
   return (
     <div className="min-h-screen bg-tomb-black noise-overlay">
       <Navigation />

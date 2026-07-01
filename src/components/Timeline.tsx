@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '@/context/AppContext';
-import eventsData from '@/data/events.json';
-import type { Event } from '@/types';
+import { supabase } from '@/lib/supabase';
 import { cn } from '@/utils/cn';
 import { Calendar, MapPin, Users, ChevronDown, ChevronUp, Skull } from 'lucide-react';
 
@@ -12,20 +11,38 @@ export const Timeline: React.FC = () => {
   const [searchParams] = useSearchParams();
   const highlightEvent = searchParams.get('event');
 
+  // ВСЕ useState в самом начале
   const [expandedEvent, setExpandedEvent] = useState<string | null>(highlightEvent);
   const [filterMajor, setFilterMajor] = useState(false);
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
+  const [events, setEvents] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const events = eventsData as Event[];
-  const sortedEvents = [...events].sort((a, b) => a.day - b.day);
+  // ВСЕ useEffect после всех useState
+  useEffect(() => {
+    async function loadEvents() {
+      const { data, error } = await supabase
+        .from('events')
+        .select(`
+          *,
+          room:rooms(name),
+          participants:event_participants(
+            character:characters(name)
+          )
+        `)
+        .order('day', { ascending: true })
+        .order('sequence_order', { ascending: true });
 
-  const days = Array.from(new Set(sortedEvents.map(e => e.day))).sort((a, b) => a - b);
+      if (error) {
+        console.error('Ошибка загрузки событий:', error);
+      } else {
+        setEvents(data || []);
+      }
+      setLoading(false);
+    }
 
-  const filteredEvents = sortedEvents.filter(event => {
-    if (filterMajor && !event.isMajor) return false;
-    if (selectedDay !== null && event.day !== selectedDay) return false;
-    return true;
-  });
+    loadEvents();
+  }, []);
 
   useEffect(() => {
     if (highlightEvent) {
@@ -36,6 +53,21 @@ export const Timeline: React.FC = () => {
       }
     }
   }, [highlightEvent]);
+
+  // ТОЛЬКО ПОСЛЕ всех хуков можно делать ранний return
+  if (loading) {
+    return <div className="p-8 text-center text-white">Загрузка событий из базы...</div>;
+  }
+
+  // Вся остальная логика после проверки loading
+  const sortedEvents = [...events].sort((a, b) => a.day - b.day);
+  const days = Array.from(new Set(sortedEvents.map(e => e.day))).sort((a, b) => a - b);
+
+  const filteredEvents = sortedEvents.filter(event => {
+    if (filterMajor && event.importance !== 'critical' && event.importance !== 'major') return false;
+    if (selectedDay !== null && event.day !== selectedDay) return false;
+    return true;
+  });
 
   return (
     <div className="min-h-screen pt-16 pb-8 px-4">
@@ -51,7 +83,7 @@ export const Timeline: React.FC = () => {
           <p className="font-body text-tomb-bone/70 italic">
             {language === 'en' 
               ? 'The days unfold at Canaan House' 
-              : 'Дни разворачиваются в Каанан-Хаусе'}
+              : 'Дни разворачиваются в Доме Ханаанском'}
           </p>
         </motion.div>
 
@@ -100,13 +132,14 @@ export const Timeline: React.FC = () => {
 
         {/* Timeline */}
         <div className="relative">
-          {/* Central line */}
           <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-tomb-bronze/30 -translate-x-1/2" />
 
           <div className="space-y-6">
             {filteredEvents.map((event, index) => {
               const isExpanded = expandedEvent === event.id;
               const isHighlighted = highlightEvent === event.id;
+              const isMajor = event.importance === 'critical' || event.importance === 'major';
+              const participantsCount = event.participants?.length || 0;
 
               return (
                 <motion.div
@@ -120,17 +153,15 @@ export const Timeline: React.FC = () => {
                     index % 2 === 0 ? "md:pr-[calc(50%+2rem)]" : "md:pl-[calc(50%+2rem)]"
                   )}
                 >
-                  {/* Timeline node */}
                   <div className={cn(
                     "absolute left-4 md:left-1/2 top-3 w-3 h-3 rounded-full border-2 -translate-x-1/2 z-10 transition-all",
                     isHighlighted 
                       ? "border-tomb-gold bg-tomb-gold/30 shadow-lg shadow-tomb-gold/20" 
-                      : event.isMajor 
+                      : isMajor
                         ? "border-tomb-blood bg-tomb-blood/20" 
                         : "border-tomb-bronze bg-tomb-dark"
                   )} />
 
-                  {/* Card */}
                   <div 
                     onClick={() => setExpandedEvent(isExpanded ? null : event.id)}
                     className={cn(
@@ -145,19 +176,14 @@ export const Timeline: React.FC = () => {
                             <span className="font-mono text-xs text-tomb-gold">
                               {language === 'en' ? `Day ${event.day}` : `День ${event.day}`}
                             </span>
-                            {event.chapter && (
-                              <span className="font-mono text-xs text-tomb-bone/40">
-                                {event.chapter}
-                              </span>
-                            )}
-                            {event.isMajor && (
+                            {isMajor && (
                               <span className="px-1.5 py-0.5 bg-tomb-blood/20 text-tomb-bone/70 text-[10px] font-mono rounded">
                                 {language === 'en' ? 'MAJOR' : 'ГЛАВНОЕ'}
                               </span>
                             )}
                           </div>
                           <h3 className="font-display text-lg text-tomb-ivory">
-                            {language === 'en' ? event.title : event.titleRu}
+                            {event.name}
                           </h3>
                         </div>
                         {isExpanded ? <ChevronUp size={18} className="text-tomb-bone/40" /> : <ChevronDown size={18} className="text-tomb-bone/40" />}
@@ -173,21 +199,25 @@ export const Timeline: React.FC = () => {
                           >
                             <div className="pt-4 mt-4 border-t border-tomb-bronze/20">
                               <p className="ancient-text text-sm leading-relaxed mb-4">
-                                {language === 'en' ? event.description : event.descriptionRu}
+                                {event.description}
                               </p>
 
                               <div className="flex flex-wrap gap-4 text-xs font-mono text-tomb-bone/50">
-                                <Link 
-                                  to={`/room/${event.location}`}
-                                  className="flex items-center gap-1 hover:text-tomb-gold transition-colors"
-                                >
-                                  <MapPin size={12} />
-                                  {language === 'en' ? 'Location' : 'Место'}
-                                </Link>
-                                <span className="flex items-center gap-1">
-                                  <Users size={12} />
-                                  {event.characters.length} {language === 'en' ? 'characters' : 'персонажей'}
-                                </span>
+                                {event.room?.name && (
+                                  <Link 
+                                    to={`/room/${event.location_id}`}
+                                    className="flex items-center gap-1 hover:text-tomb-gold transition-colors"
+                                  >
+                                    <MapPin size={12} />
+                                    {event.room.name}
+                                  </Link>
+                                )}
+                                {participantsCount > 0 && (
+                                  <span className="flex items-center gap-1">
+                                    <Users size={12} />
+                                    {participantsCount} {language === 'en' ? 'characters' : 'персонажей'}
+                                  </span>
+                                )}
                               </div>
                             </div>
                           </motion.div>
